@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Maç Tahmin Botu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0f2027;
+            background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 20px;
+            width: 300px;
+            border-radius: 10px;
+            border: none;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Maçkolik Tahmin Botu</h1>
+    <form method="POST">
+        <input type="text" name="mackolik_link" placeholder="Maçkolik maç linkini yapıştırın" required>
+        <br>
+        <button type="submit">Tahmin Al</button>
+    </form>
+
+    {% if prediction %}
+    <div class="card">
+        <h2>Tahminler:</h2>
+        <p><strong>Maç Sonucu:</strong> {{ prediction.ms }}</p>
+        <p><strong>KG VAR:</strong> {{ prediction.kg }}</p>
+        <p><strong>2.5 ÜST/ALT:</strong> {{ prediction.over_under }}</p>
+        <p><strong>Tahmini Gol:</strong> {{ prediction.goals }}</p>
+    </div>
+    {% elif error %}
+    <div class="card" style="background: #ff4d4d;">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>
